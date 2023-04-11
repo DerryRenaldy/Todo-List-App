@@ -2,7 +2,9 @@ package constants
 
 // Endpoint library
 const (
-	CreateActivityEndpoint = "/activity-groups"
+	CreateActivityEndpoint     = "/activity-groups"
+	GetOneActivityByIdEndpoint = "/activity-groups/{id}"
+	GetListActivityEndpoint    = "/activity-groups"
 )
 
 // Header library

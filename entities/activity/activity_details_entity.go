@@ -2,7 +2,7 @@ package entityactivity
 
 import "time"
 
-type CreateActivityDetails struct {
+type ActivityDetails struct {
 	Id        int       `json:"id"`
 	Title     string    `json:"title"`
 	Email     string    `json:"email"`

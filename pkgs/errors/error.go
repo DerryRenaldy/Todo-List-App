@@ -1,7 +1,5 @@
 package cErrors
 
-import "fmt"
-
 // List of all errors
 const (
 	InternalServer     = "internal error"
@@ -29,7 +27,7 @@ type CustomError struct {
 }
 
 func (c CustomError) Error() string {
-	return fmt.Sprintf("CustomError = [status] %v - [message] = %v", c.Status, c.Message)
+	return c.Message
 }
 
 func (c CustomError) GetHTTPCode() int {
