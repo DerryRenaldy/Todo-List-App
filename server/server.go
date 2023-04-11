@@ -10,6 +10,7 @@ import (
 	"github.com/DerryRenaldy/Todo-List-App/server/middleware"
 	activitystore "github.com/DerryRenaldy/Todo-List-App/stores/mysql/activity"
 	"github.com/DerryRenaldy/logger/logger"
+	"github.com/gorilla/mux"
 	"net/http"
 	"os"
 )
@@ -64,12 +65,14 @@ func NewService(cfg *configs.Config, logger logger.ILogger) *Server {
 func (s *Server) Start() {
 	addr = ":8090"
 
-	http.Handle(constants.CreateActivityEndpoint, middleware.ErrHandler(s.handler.CreateActivity))
+	r := mux.NewRouter()
+	r.Handle(constants.CreateActivityEndpoint, middleware.ErrHandler(s.handler.CreateActivity)).Methods(http.MethodPost)
+	r.Handle(constants.GetOneActivityByIdEndpoint, middleware.ErrHandler(s.handler.GetOneActivityById)).Methods(http.MethodGet)
 
 	s.log.Infof("HTTP server starting %v", addr)
 
 	go func() {
-		err := http.ListenAndServe(addr, nil)
+		err := http.ListenAndServe(addr, r)
 		if err != nil {
 			s.log.Fatalf("error listening to address %v, err=%v", addr, err)
 		}
