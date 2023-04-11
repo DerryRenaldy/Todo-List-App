@@ -1,12 +1,17 @@
 package constants
 
-// Endpoint library
+// Endpoint Activity library
 const (
 	CreateActivityEndpoint          = "/activity-groups"
 	GetOneActivityByIdEndpoint      = "/activity-groups/{id}"
 	GetListActivityEndpoint         = "/activity-groups"
 	DeleteActivityByIdEndpoint      = "/activity-groups/{id}"
 	UpdateTitleActivityByIdEndpoint = "/activity-groups/{id}"
+)
+
+// Endpoint Todo library
+const (
+	CreateTodoEndpoint = "/todo-items"
 )
 
 // Header library

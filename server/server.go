@@ -3,12 +3,15 @@ package server
 import (
 	"database/sql"
 	activityhandlers "github.com/DerryRenaldy/Todo-List-App/apis/v1/handlers/activity"
+	todohandlers "github.com/DerryRenaldy/Todo-List-App/apis/v1/handlers/todo"
 	activityservices "github.com/DerryRenaldy/Todo-List-App/apis/v1/services/activity"
+	todoservices "github.com/DerryRenaldy/Todo-List-App/apis/v1/services/todo"
 	"github.com/DerryRenaldy/Todo-List-App/configs"
 	"github.com/DerryRenaldy/Todo-List-App/constants"
 	"github.com/DerryRenaldy/Todo-List-App/pkgs/database/mysql"
 	"github.com/DerryRenaldy/Todo-List-App/server/middleware"
 	activitystore "github.com/DerryRenaldy/Todo-List-App/stores/mysql/activity"
+	todostore "github.com/DerryRenaldy/Todo-List-App/stores/mysql/todo"
 	"github.com/DerryRenaldy/logger/logger"
 	"github.com/gorilla/mux"
 	"net/http"
@@ -16,10 +19,12 @@ import (
 )
 
 type Server struct {
-	cfg     *configs.Config
-	log     logger.ILogger
-	service activityservices.IService
-	handler activityhandlers.IHandler
+	cfg             *configs.Config
+	log             logger.ILogger
+	serviceActivity activityservices.IService
+	serviceTodo     todoservices.IService
+	handlerActivity activityhandlers.IHandler
+	handlerTodo     todohandlers.IHandler
 }
 
 var addr string
@@ -39,12 +44,15 @@ func (s *Server) Register() {
 	}
 
 	activityRepo := activitystore.NewActivityRepoImpl(db, s.log)
+	todoRepo := todostore.NewTodoRepoImpl(db, s.log)
 
 	// Register service
-	s.service = activityservices.NewActivityServiceImpl(activityRepo, s.log)
+	s.serviceActivity = activityservices.NewActivityServiceImpl(activityRepo, s.log)
+	s.serviceTodo = todoservices.NewTodoServiceImpl(activityRepo, todoRepo, s.log)
 
 	// Register handler
-	s.handler = activityhandlers.NewActivityHandlerImpl(s.service, s.log)
+	s.handlerActivity = activityhandlers.NewActivityHandlerImpl(s.serviceActivity, s.log)
+	s.handlerTodo = todohandlers.NewTodoHandlerImpl(s.serviceTodo, s.log)
 }
 
 func NewService(cfg *configs.Config, logger logger.ILogger) *Server {
@@ -66,11 +74,22 @@ func (s *Server) Start() {
 	addr = ":8090"
 
 	r := mux.NewRouter()
-	r.Handle(constants.GetListActivityEndpoint, middleware.ErrHandler(s.handler.GetListActivity)).Methods(http.MethodGet)
-	r.Handle(constants.CreateActivityEndpoint, middleware.ErrHandler(s.handler.CreateActivity)).Methods(http.MethodPost)
-	r.Handle(constants.GetOneActivityByIdEndpoint, middleware.ErrHandler(s.handler.GetOneActivityById)).Methods(http.MethodGet)
-	r.Handle(constants.DeleteActivityByIdEndpoint, middleware.ErrHandler(s.handler.DeleteActivityById)).Methods(http.MethodDelete)
-	r.Handle(constants.UpdateTitleActivityByIdEndpoint, middleware.ErrHandler(s.handler.UpdateTitleActivityById)).Methods(http.MethodPatch)
+
+	// Activity route
+	r.Handle(constants.GetListActivityEndpoint, middleware.ErrHandler(s.handlerActivity.GetListActivity)).
+		Methods(http.MethodGet)
+	r.Handle(constants.CreateActivityEndpoint, middleware.ErrHandler(s.handlerActivity.CreateActivity)).
+		Methods(http.MethodPost)
+	r.Handle(constants.GetOneActivityByIdEndpoint, middleware.ErrHandler(s.handlerActivity.GetOneActivityById)).
+		Methods(http.MethodGet)
+	r.Handle(constants.DeleteActivityByIdEndpoint, middleware.ErrHandler(s.handlerActivity.DeleteActivityById)).
+		Methods(http.MethodDelete)
+	r.Handle(constants.UpdateTitleActivityByIdEndpoint, middleware.ErrHandler(s.handlerActivity.UpdateTitleActivityById)).
+		Methods(http.MethodPatch)
+
+	// Todo route
+	r.Handle(constants.CreateTodoEndpoint, middleware.ErrHandler(s.handlerTodo.CreateTodo)).
+		Methods(http.MethodPost)
 
 	s.log.Infof("HTTP server starting %v", addr)
 
