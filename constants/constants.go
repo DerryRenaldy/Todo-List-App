@@ -5,6 +5,7 @@ const (
 	CreateActivityEndpoint     = "/activity-groups"
 	GetOneActivityByIdEndpoint = "/activity-groups/{id}"
 	GetListActivityEndpoint    = "/activity-groups"
+	DeleteActivityByIdEndpoint = "/activity-groups/{id}"
 )
 
 // Header library

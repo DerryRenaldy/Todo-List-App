@@ -69,6 +69,7 @@ func (s *Server) Start() {
 	r.Handle(constants.GetListActivityEndpoint, middleware.ErrHandler(s.handler.GetListActivity)).Methods(http.MethodGet)
 	r.Handle(constants.CreateActivityEndpoint, middleware.ErrHandler(s.handler.CreateActivity)).Methods(http.MethodPost)
 	r.Handle(constants.GetOneActivityByIdEndpoint, middleware.ErrHandler(s.handler.GetOneActivityById)).Methods(http.MethodGet)
+	r.Handle(constants.DeleteActivityByIdEndpoint, middleware.ErrHandler(s.handler.DeleteActivityById)).Methods(http.MethodDelete)
 
 	s.log.Infof("HTTP server starting %v", addr)
 
