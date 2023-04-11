@@ -44,4 +44,3 @@ func (t *TodoHandlerImpl) CreateTodo(w http.ResponseWriter, r *http.Request) err
 	w.WriteHeader(http.StatusCreated)
 	return handlers.ResponseJson(w, res)
 }
-
