@@ -66,6 +66,7 @@ func (s *Server) Start() {
 	addr = ":8090"
 
 	r := mux.NewRouter()
+	r.Handle(constants.GetListActivityEndpoint, middleware.ErrHandler(s.handler.GetListActivity)).Methods(http.MethodGet)
 	r.Handle(constants.CreateActivityEndpoint, middleware.ErrHandler(s.handler.CreateActivity)).Methods(http.MethodPost)
 	r.Handle(constants.GetOneActivityByIdEndpoint, middleware.ErrHandler(s.handler.GetOneActivityById)).Methods(http.MethodGet)
 

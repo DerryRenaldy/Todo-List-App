@@ -23,6 +23,7 @@ func NewActivityServiceImpl(activityRepo activityrepo.IRepository, l logger.ILog
 type IService interface {
 	CreateActivity(ctx context.Context, payload *dtoactivity.CreateActivityRequest) (*entityactivity.ActivityDetails, error)
 	GetOneActivityById(ctx context.Context, id int) (*entityactivity.ActivityDetails, error)
+	GetListActivity(ctx context.Context) ([]entityactivity.ActivityDetails, error)
 }
 
 var _ IService = (*ActivityServiceImpl)(nil)
