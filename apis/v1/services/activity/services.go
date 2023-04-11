@@ -25,6 +25,7 @@ type IService interface {
 	GetOneActivityById(ctx context.Context, id int) (*entityactivity.ActivityDetails, error)
 	GetListActivity(ctx context.Context) ([]entityactivity.ActivityDetails, error)
 	DeleteActivityById(ctx context.Context, id int) error
+	UpdateTitleActivityById(ctx context.Context, id int, title string) (*entityactivity.ActivityDetails, error)
 }
 
 var _ IService = (*ActivityServiceImpl)(nil)

@@ -23,6 +23,7 @@ type IHandler interface {
 	GetOneActivityById(w http.ResponseWriter, r *http.Request) error
 	GetListActivity(w http.ResponseWriter, r *http.Request) error
 	DeleteActivityById(w http.ResponseWriter, r *http.Request) error
+	UpdateTitleActivityById(w http.ResponseWriter, r *http.Request) error
 }
 
 var _ IHandler = (*ActivityHandlerImpl)(nil)

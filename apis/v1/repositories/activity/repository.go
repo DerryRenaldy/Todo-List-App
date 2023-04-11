@@ -13,6 +13,7 @@ type IRepository interface {
 	GetOneActivityById(ctx context.Context, id int) (*entityactivity.ActivityDetails, error)
 	GetListActivity(ctx context.Context) ([]entityactivity.ActivityDetails, error)
 	DeleteActivityById(ctx context.Context, id int, deletedAt time.Time) error
+	UpdateActivityTitleById(ctx context.Context, id int, title string) (*entityactivity.ActivityDetails, error)
 }
 
 var _ IRepository = (*activitystore.ActivityRepoImpl)(nil)
