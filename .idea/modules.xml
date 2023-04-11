@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ToDo-List-App.iml" filepath="$PROJECT_DIR$/.idea/ToDo-List-App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Todo-List-App/.idea/Todo-List-App.iml" filepath="$PROJECT_DIR$/../Todo-List-App/.idea/Todo-List-App.iml" />
     </modules>
   </component>
 </project>
