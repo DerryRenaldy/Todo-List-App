@@ -5,4 +5,5 @@ const (
 	QueryGetOneTodoById    = `SELECT todo_id, activity_group_id, title, is_active, priority, created_at, updated_at FROM todoApp.todos WHERE todo_id=?;`
 	QueryGetTodoList       = `SELECT todo_id, activity_group_id, title, is_active, priority, created_at, updated_at FROM todoApp.todos`
 	QueryUpdateDeletedTime = `UPDATE todoApp.todos SET deleted_at=? WHERE todo_id=?;`
+	QueryUpdateTodoById    = `UPDATE todoApp.todos SET title=?, priority=?, is_active=? WHERE todo_id=?;`
 )

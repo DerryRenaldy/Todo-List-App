@@ -29,6 +29,7 @@ type IService interface {
 	GetOneTodoById(ctx context.Context, id int) (*entitytodo.TodoDetails, error)
 	GetTodoList(ctx context.Context, id int) ([]entitytodo.TodoDetails, error)
 	DeleteTodoById(ctx context.Context, id int) error
+	UpdateTodoById(ctx context.Context, payload *dtotodo.UpdateTodoRequest) (*entitytodo.TodoDetails, error)
 }
 
 var _ IService = (*TodoServiceImpl)(nil)

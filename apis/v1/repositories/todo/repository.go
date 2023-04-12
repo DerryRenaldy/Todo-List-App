@@ -13,6 +13,7 @@ type IRepository interface {
 	GetOneTodoById(ctx context.Context, id int) (*entitytodo.TodoDetails, error)
 	GetTodoList(ctx context.Context, id int) ([]entitytodo.TodoDetails, error)
 	DeleteTodoById(ctx context.Context, id int, deletedAt time.Time) error
+	UpdateTodoById(ctx context.Context, payload *dtotodo.UpdateTodoRequest) (*entitytodo.TodoDetails, error)
 }
 
 var _ IRepository = (*todostore.TodoRepoImpl)(nil)
