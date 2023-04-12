@@ -27,6 +27,7 @@ func NewTodoServiceImpl(activityRepo activityrepo.IRepository, todoRepo todorepo
 type IService interface {
 	CreateTodo(ctx context.Context, payload *dtotodo.CreateTodoRequest) (*entitytodo.TodoDetails, error)
 	GetOneTodoById(ctx context.Context, id int) (*entitytodo.TodoDetails, error)
+	GetTodoList(ctx context.Context, id int) ([]entitytodo.TodoDetails, error)
 }
 
 var _ IService = (*TodoServiceImpl)(nil)

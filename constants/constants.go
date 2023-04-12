@@ -13,6 +13,7 @@ const (
 const (
 	CreateTodoEndpoint     = "/todo-items"
 	GetOneTodoByIdEndpoint = "/todo-items/{id}"
+	GetTodoListEndpoint    = "/todo-items"
 )
 
 // Header library

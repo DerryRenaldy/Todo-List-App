@@ -27,6 +27,6 @@ func (a *ActivityHandlerImpl) GetOneActivityById(w http.ResponseWriter, r *http.
 		Data:    activityDetail,
 	}
 
-	w.WriteHeader(http.StatusCreated)
+	w.WriteHeader(http.StatusOK)
 	return handlers.ResponseJson(w, res)
 }

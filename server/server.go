@@ -92,6 +92,8 @@ func (s *Server) Start() {
 		Methods(http.MethodPost)
 	r.Handle(constants.GetOneTodoByIdEndpoint, middleware.ErrHandler(s.handlerTodo.GetOneTodoById)).
 		Methods(http.MethodGet)
+	r.Handle(constants.GetTodoListEndpoint, middleware.ErrHandler(s.handlerTodo.GetTodoList)).
+		Methods(http.MethodGet)
 
 	s.log.Infof("HTTP server starting %v", addr)
 
