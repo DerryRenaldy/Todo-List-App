@@ -20,6 +20,7 @@ func NewTodoHandlerImpl(todoServices todoservices.IService, l logger.ILogger) *T
 
 type IHandler interface {
 	CreateTodo(w http.ResponseWriter, r *http.Request) error
+	GetOneTodoById(w http.ResponseWriter, r *http.Request) error
 }
 
 var _ IHandler = (*TodoHandlerImpl)(nil)

@@ -90,6 +90,8 @@ func (s *Server) Start() {
 	// Todo route
 	r.Handle(constants.CreateTodoEndpoint, middleware.ErrHandler(s.handlerTodo.CreateTodo)).
 		Methods(http.MethodPost)
+	r.Handle(constants.GetOneTodoByIdEndpoint, middleware.ErrHandler(s.handlerTodo.GetOneTodoById)).
+		Methods(http.MethodGet)
 
 	s.log.Infof("HTTP server starting %v", addr)
 

@@ -11,7 +11,8 @@ const (
 
 // Endpoint Todo library
 const (
-	CreateTodoEndpoint = "/todo-items"
+	CreateTodoEndpoint     = "/todo-items"
+	GetOneTodoByIdEndpoint = "/todo-items/{id}"
 )
 
 // Header library
