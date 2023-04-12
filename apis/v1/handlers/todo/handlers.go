@@ -22,6 +22,7 @@ type IHandler interface {
 	CreateTodo(w http.ResponseWriter, r *http.Request) error
 	GetOneTodoById(w http.ResponseWriter, r *http.Request) error
 	GetTodoList(w http.ResponseWriter, r *http.Request) error
+	DeleteTodoById(w http.ResponseWriter, r *http.Request) error
 }
 
 var _ IHandler = (*TodoHandlerImpl)(nil)

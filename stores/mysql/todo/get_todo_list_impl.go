@@ -15,7 +15,7 @@ func (t *TodoRepoImpl) GetTodoList(ctx context.Context, id int) ([]entitytodo.To
 	var err error
 
 	if id == 0 {
-		newQuery = QueryGetTodoList + ";"
+		newQuery = QueryGetTodoList + " WHERE deleted_at IS NULL;"
 		rows, err = t.db.QueryContext(ctx, newQuery)
 		if err != nil {
 			t.l.Errorf("[%s] - In SELECT activity list query %s", functionName, err)
@@ -23,7 +23,7 @@ func (t *TodoRepoImpl) GetTodoList(ctx context.Context, id int) ([]entitytodo.To
 		}
 		defer rows.Close()
 	} else {
-		newQuery = QueryGetTodoList + " WHERE activity_group_id=?;"
+		newQuery = QueryGetTodoList + " WHERE activity_group_id=? AND IS NULL;"
 		rows, err = t.db.QueryContext(ctx, newQuery, id)
 		if err != nil {
 			t.l.Errorf("[%s] - In SELECT activity list query %s", functionName, err)

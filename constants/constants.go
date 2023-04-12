@@ -14,6 +14,7 @@ const (
 	CreateTodoEndpoint     = "/todo-items"
 	GetOneTodoByIdEndpoint = "/todo-items/{id}"
 	GetTodoListEndpoint    = "/todo-items"
+	DeleteTodoByIdEndpoint = "/todo-items/{id}"
 )
 
 // Header library
